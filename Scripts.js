@@ -1,83 +1,109 @@
 function updateFields(target) {
-	var text = $(target).text();
-	var fontSize = parseFloat($(target).css("font-size"));
-	var top = parseFloat($(target).css("top"));
-	var left = parseFloat($(target).css("left"));
-	$("#text").val(text);
-	$("#font-size").val(fontSize);
-	$("#top").val(top);
-	$("#left").val(left);
+	var element = getElement(target);
+	$(".elementMeasure").each(function() {
+		var property = $(this).attr("id");
+		$(this).val(element[property]["measure"]);
+	});
+	$("#elementText").val(element["text"]);
+}
+function addToLabel(element) {
+	var $div = $("<div>");
+	var fontSize = element["font-size"]["measure"]
+			+ element["font-size"]["unit"];
+	var x = element["left"]["measure"] + element["left"]["unit"];
+	var y = element["top"]["measure"] + element["top"]["unit"];
+	$div.attr("class", "labelElement");
+	$div.text(element["text"]);
+	$div.attr("id", element["target"]);
+	$div.css({
+		"font-size" : fontSize,
+		"left" : x,
+		"top" : y
+	});
+	$("#labelHome").append($div);
 }
 function updateZPL() {
 	var newLine = "\n";
+	var coma = ",";
 	var zpl = "^XA" + newLine;
-	zpl += "^LL" + $(".labelMeasureInput[property='height']").val()
-	+ newLine;
-	zpl += "^PW" + $(".labelMeasureInput[property='width']").val()
-	+ newLine;
-	zpl += "^LH" + $(".generalMeasureInput[property='left']").val() + ","
-	+ $(".generalMeasureInput[property='top']").val() + newLine;
+	zpl += "^LL" + mm2dots(label["height"]["measure"]) + newLine;
+	zpl += "^PW" + mm2dots(label["width"]["measure"]) + newLine;
+	zpl += "^LH" + mm2dots(label["left"]["measure"]) + coma
+			+ mm2dots(label["top"]["measure"]) + newLine;
 	zpl += "^MUd" + newLine;
-	$(".labelElement").each(
-		function() {
-			zpl += "^FO" + parseFloat($(this).css("left")) + ","
-			+ parseFloat($(this).css("top")) + ",^A0N,"
-			+ parseFloat($(this).css("font-size"))
-			+ ",^CI28^FD" + $(this).text() + "^FS" + newLine;
-		});
+	for (var i = 0; i < label["elements"].length; i++) {
+		var element = label["elements"][i];
+		zpl += "^FO" + mm2dots(element["left"]["measure"]) + coma
+				+ mm2dots(element["left"]["measure"]);
+		zpl += "^A0N" + coma + pt2dots(element["font-size"]["measure"]) + coma;
+		zpl += "^CI28";
+		zpl += "^FD" + element["text"] + "^FS" + newLine;
+	}
 	zpl += "^XZ" + newLine;
 	$("#zplArea").val(zpl);
 }
 function init() {
 	$("input[type=number]").attr("step", "1");
-	$(".labelMeasureInput").each(function() {
+	$(".labelMeasure").each(function() {
 		var property = $(this).attr("property");
-		var newValue = parseFloat($("#label").css(property));
-		$(this).val(newValue);
-		$("#labelHome").css(property, newValue + "px");
+		var value = label[property];
+		$(this).val(value["measure"]);
+		$("#label").css(property, value["measure"] + value["unit"]);
 	});
-	$(".generalMeasureInput").each(function() {
+	$(".labelHomeMeasure").each(function() {
 		var property = $(this).attr("property");
-		var newValue = parseFloat($("#labelHome").css(property));
-		$(this).val(newValue);
+		var value = label[property];
+		$(this).val(value["measure"]);
+		$("#labelHome").css(property, value["measure"] + value["unit"]);
 	});
-	$("#target option").each(function() {
-		var target = $(this).val();
-		updateFields(target);
-	});
+	for (var i = 0; i < label["elements"].length; i++) {
+		var element = label["elements"][i];
+		var $option = $("<option>");
+		$option.val(element["target"]);
+		$option.text(element["title"]);
+		$("#target").append($option);
+		addToLabel(element);
+	}
+	updateFields($("#target").val());
 	updateZPL();
 }
-$(document).ready(function() {
-	init();
-	$(".labelMeasureInput").change(function() {
-		var property = $(this).attr("property");
-		var newValue = parseFloat($(this).val()) + "px";
-		$("#labelHome").css(property, newValue);
-		$("#label").css(property, newValue);
-		updateZPL();
-	});
-	$(".generalMeasureInput").change(function() {
-		var property = $(this).attr("property");
-		var newValue = $(this).val() + "px";
-		$("#labelHome").css(property, newValue);
-		updateZPL();
-	});
-	$(".textInput").change(function() {
-		var target = $("#target").val();
-		var newText = $(this).val();
-		$(target).text(newText);
-		updateZPL();
-	});
-	$(".measureInput").change(function() {
-		var target = $("#target").val();
-		var property = $(this).attr("id");
-		var newValue = $(this).val() + "px";
-		$(target).css(property, newValue);
-		updateZPL();
-	});
-	$("#target").change(function() {
-		var target = $(this).val();
-		updateFields(target);
-	});
-});
-
+$(document).ready(
+		function() {
+			init();
+			$(".labelMeasure").change(function() {
+				var property = $(this).attr("property");
+				var value = $(this).val();
+				var unit = label[property]["unit"];
+				$("#label").css(property, value + unit);
+				label[property]["measure"] = value;
+				updateZPL();
+			});
+			$(".labelHomeMeasure").change(function() {
+				var property = $(this).attr("property");
+				var value = $(this).val();
+				var unit = label[property]["unit"];
+				$("#labelHome").css(property, value + unit);
+				label[property]["measure"] = value;
+				updateZPL();
+			});
+			$("#target").change(function() {
+				var target = $(this).val();
+				updateFields(target);
+			});
+			$("#elementText").change(function() {
+				var target = $("#target").val();
+				var value = $(this).val();
+				$("#" + target).text(value);
+				updateZPL();
+			});
+			$(".elementMeasure").change(
+					function() {
+						var target = $("#target").val();
+						var property = $(this).attr("id");
+						var value = $(this).val();
+						editElement(target, property, value);
+						$("#" + target).css(property,
+								value + getElement(target)[property]["unit"]);
+						updateZPL();
+					});
+		});

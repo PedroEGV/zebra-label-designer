@@ -9,6 +9,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="LabelElements.js"></script>
 <script type="text/javascript" src="Scripts.js"></script>
 </head>
 <body>
@@ -23,7 +24,7 @@
 								<label>Height:</label>
 							</div>
 							<div class="col-md-6">
-								<input type="number" class="labelMeasureInput" property="height" />px
+								<input type="number" class="labelMeasure" property="height" />mm
 							</div>
 						</div>
 						<div class="row">
@@ -31,7 +32,7 @@
 								<label>Width:</label>
 							</div>
 							<div class="col-md-6">
-								<input type="number" class="labelMeasureInput" property="width" />px
+								<input type="number" class="labelMeasure" property="width" />mm
 							</div>
 						</div>
 						<div class="row">
@@ -39,7 +40,7 @@
 								<label>Left margin:</label>
 							</div>
 							<div class="col-md-6">
-								<input type="number" class="generalMeasureInput" property="left" />px
+								<input type="number" class="labelHomeMeasure" property="left" />mm
 							</div>
 						</div>
 						<div class="row">
@@ -47,7 +48,7 @@
 								<label>Top margin:</label>
 							</div>
 							<div class="col-md-6">
-								<input type="number" class="generalMeasureInput" property="top" />px
+								<input type="number" class="labelHomeMeasure" property="top" />mm
 							</div>
 						</div>
 					</fieldset>
@@ -59,18 +60,6 @@
 							</div>
 							<div class="col-md-6">
 								<select id="target">
-									<option value="#leftHeader">Left header</option>
-									<option value="#rightHeader">Right header</option>
-									<option value="#saleUnit">Sale unit</option>
-									<option value="#currency">Currency</option>
-									<option value="#priceTitle">Price title</option>
-									<option value="#integerPricePart">Integer price part</option>
-									<option value="#decimalPricePart">Decimal price part</option>
-									<option value="#description">Description</option>
-									<option value="#suplyerReference">Suplyer reference</option>
-									<option value="#lastPriceChange">Last price change</option>
-									<option value="#productId">Product ID</option>
-									<option value="#productExternalId">Product external ID</option>
 								</select>
 							</div>
 						</div>
@@ -79,7 +68,7 @@
 								<label>Text:</label>
 							</div>
 							<div class="col-md-6">
-								<input type="text" class="textInput" id="text" />
+								<input type="text" id="elementText" />
 							</div>
 						</div>
 						<div class="row">
@@ -87,7 +76,7 @@
 								<label>Font size:</label>
 							</div>
 							<div class="col-md-6">
-								<input type="number" class="measureInput" id="font-size" />px
+								<input type="number" class="elementMeasure" id="font-size" />pt
 							</div>
 						</div>
 						<div class="row">
@@ -95,7 +84,7 @@
 								<label>X:</label>
 							</div>
 							<div class="col-md-6">
-								<input type="number" class="measureInput" id="left" />px
+								<input type="number" class="elementMeasure" id="left" />mm
 							</div>
 						</div>
 						<div class="row">
@@ -103,7 +92,7 @@
 								<label>Y:</label>
 							</div>
 							<div class="col-md-6">
-								<input type="number" class="measureInput" id="top" />px
+								<input type="number" class="elementMeasure" id="top" />mm
 							</div>
 						</div>
 					</fieldset>
@@ -120,21 +109,7 @@
 		</form>
 		<div class="row">
 			<div id="label">
-				<div id="labelHome">
-					<div class="labelElement" id="leftHeader">PMVP Bs. 1.234.567,89</div>
-					<div class="labelElement" id="rightHeader">IVA 12,34% Bs. 1.234.567,89</div>
-					<div class="labelElement" id="saleUnit">pza</div>
-					<div class="labelElement" id="currency">Bs.</div>
-					<div class="labelElement" id="integerPricePart">1.234.567</div>
-					<div class="labelElement" id="decimalPricePart">89</div>
-					<div class="labelElement" id="priceTitle">Total a pagar</div>
-					<div class="labelElement" id="description">Test product description</div>
-					<div class="labelElement" id="suplyerReference">Test suplyer reference</div>
-					<div class="labelElement" id="printDate">XV OCT</div>
-					<div class="labelElement" id="lastPriceChange">31-10-2015</div>
-					<div class="labelElement" id="productId">88-88-888</div>
-					<div class="labelElement" id="productExternalId">1234567890123</div>
-				</div>  
+				<div id="labelHome"></div>
 			</div>
 		</div>
 		<footer>
