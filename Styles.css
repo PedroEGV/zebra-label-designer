@@ -1,8 +1,8 @@
-label {
-	float: left;
+button {
+	float: right;
 }
 
-input, select {
+label, input, select {
 	float: left;
 }
 
