@@ -21,34 +21,39 @@
 						<legend>Label Settings</legend>
 						<div class="row">
 							<div class="col-md-6">
-								<label>Height:</label>
+								<label for="labelHeight" class="control-label">Height:</label>
 							</div>
 							<div class="col-md-6">
-								<input type="number" class="labelMeasure" property="height" />mm
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Width:</label>
-							</div>
-							<div class="col-md-6">
-								<input type="number" class="labelMeasure" property="width" />mm
+								<input type="number" class="form-control labelMeasure"
+									property="height" id="labelHeight" />mm
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<label>Left margin:</label>
+								<label for="labelWidth" class="control-label">Width:</label>
 							</div>
 							<div class="col-md-6">
-								<input type="number" class="labelHomeMeasure" property="left" />mm
+								<input type="number" class="form-control labelMeasure"
+									property="width" id="labelWidth" />mm
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<label>Top margin:</label>
+								<label for="leftMargin" class="control-label">Left
+									margin:</label>
 							</div>
 							<div class="col-md-6">
-								<input type="number" class="labelHomeMeasure" property="top" />mm
+								<input type="number" class="form-control labelHomeMeasure"
+									property="left" id="leftMargin" />mm
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label for="topMargin" class="control-label">Top margin:</label>
+							</div>
+							<div class="col-md-6">
+								<input type="number" class="form-control labelHomeMeasure"
+									property="top" id="topMargin" />mm
 							</div>
 						</div>
 					</fieldset>
@@ -57,69 +62,49 @@
 						<div class="row">
 							<button type="button" class="btn btn-primary" id="newElement"
 								data-toggle="modal" data-target="#newElementModal">New</button>
-							<div class="modal fade" id="newElementModal" role="dialog"
-								aria-labelledby="#newElementDialogTitle">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="false">&times;</span>
-											</button>
-											<h4 class="modal-title" id="newElementDialogTitle">New
-												Label Element</h4>
-										</div>
-										<div class="modal-body">
-											<p>Form goes there&hellip;</p>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default"
-												data-dismiss="modal">Close</button>
-											<button type="button" class="btn btn-primary">Save</button>
-										</div>
-									</div>
-								</div>
-							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<label>Element:</label>
+								<label for="target" class="control-label">Element:</label>
 							</div>
 							<div class="col-md-6">
-								<select id="target">
+								<select class="form-control" id="target">
 								</select>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<label>Text:</label>
+								<label for="elementText" class="control-label">Text:</label>
 							</div>
 							<div class="col-md-6">
-								<input type="text" id="elementText" />
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label>Font size:</label>
-							</div>
-							<div class="col-md-6">
-								<input type="number" class="elementMeasure" id="font-size" />pt
+								<input type="text" class="form-control" id="elementText" />
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<label>X:</label>
+								<label for="font-size" class="control-label">Font size:</label>
 							</div>
 							<div class="col-md-6">
-								<input type="number" class="elementMeasure" id="left" />mm
+								<input type="number" class="form-control elementMeasure"
+									id="font-size" />pt
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<label>Y:</label>
+								<label for="left" class="control-label">X:</label>
 							</div>
 							<div class="col-md-6">
-								<input type="number" class="elementMeasure" id="top" />mm
+								<input type="number" class="form-control elementMeasure"
+									id="left" />mm
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label for="top" class="control-label">Y:</label>
+							</div>
+							<div class="col-md-6">
+								<input type="number" class="form-control elementMeasure"
+									id="top" />mm
 							</div>
 						</div>
 					</fieldset>
@@ -142,6 +127,29 @@
 		<footer>
 			<p>&copy; The Assemblers' Solutions 2015</p>
 		</footer>
+	</div>
+	<!-- Hidden HTML elements -->
+	<div class="modal fade" id="newElementModal" role="dialog"
+		aria-labelledby="newElementDialogTitle">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="false">&times;</span>
+					</button>
+					<h4 class="modal-title" id="newElementDialogTitle">New Label
+						Element</h4>
+				</div>
+				<div class="modal-body">
+					<p>Form goes there&hellip;</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
