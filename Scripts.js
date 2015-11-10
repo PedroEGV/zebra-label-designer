@@ -6,6 +6,14 @@ function updateFields(target) {
 	});
 	$("#elementText").val(element["text"]);
 }
+function addToSelect(element) {
+	var $option = $("<option>");
+	var target = element["target"]
+	$option.val(target);
+	$option.text(element["title"]);
+	$("#target").append($option);
+	$("#target").val(target);
+}
 function addToLabel(element) {
 	var $div = $("<div>");
 	var fontSize = element["font-size"]["measure"]
@@ -26,10 +34,10 @@ function updateZPL() {
 	var newLine = "\n";
 	var coma = ",";
 	var zpl = "^XA" + newLine;
-	zpl += "^LL" + mm2dots(label["height"]["measure"]) + newLine;
-	zpl += "^PW" + mm2dots(label["width"]["measure"]) + newLine;
 	zpl += "^LH" + mm2dots(label["left"]["measure"]) + coma
 			+ mm2dots(label["top"]["measure"]) + newLine;
+	zpl += "^LL" + mm2dots(label["height"]["measure"]) + newLine;
+	zpl += "^PW" + mm2dots(label["width"]["measure"]) + newLine;
 	zpl += "^MUd" + newLine;
 	for (var i = 0; i < label["elements"].length; i++) {
 		var element = label["elements"][i];
@@ -58,13 +66,12 @@ function init() {
 	});
 	for (var i = 0; i < label["elements"].length; i++) {
 		var element = label["elements"][i];
-		var $option = $("<option>");
-		$option.val(element["target"]);
-		$option.text(element["title"]);
-		$("#target").append($option);
+		addToSelect(element);
 		addToLabel(element);
 	}
-	updateFields($("#target").val());
+	if (label["elements"].length > 0) {
+		updateFields($("#target").val());
+	}
 	updateZPL();
 }
 $(document).ready(
@@ -94,6 +101,7 @@ $(document).ready(
 				var target = $("#target").val();
 				var value = $(this).val();
 				$("#" + target).text(value);
+				editElement(target, "text", value);
 				updateZPL();
 			});
 			$(".elementMeasure").change(
@@ -106,4 +114,15 @@ $(document).ready(
 								value + getElement(target)[property]["unit"]);
 						updateZPL();
 					});
+			$("#saveElement").click(function() {
+				var title = $("#elementTitle").val();
+				var element = addElement(title);
+				var target = element["target"];
+				addToSelect(element);
+				addToLabel(element);
+				updateFields(target);
+				updateZPL();
+				$("#elementTitle").val("");
+				$("#elementText").focus();
+			});
 		});

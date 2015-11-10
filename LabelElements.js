@@ -30,7 +30,7 @@ var defaultElement = {
 		unit : "mm"
 	}
 };
-var labelElements = [ defaultElement ];
+var labelElements = [];
 var label = {
 	height : {
 		measure : 50,
@@ -52,10 +52,16 @@ var label = {
 };
 
 function addElement() {
-	var element = defaultElement;
+	return addElement(defaultElement["title"]);
+}
+
+function addElement(title) {
+	var element = JSON.parse(JSON.stringify(defaultElement));
 	var length = labelElements.length;
-	element.target += length;
+	element["target"] += length;
+	element["title"] = title;
 	labelElements[length] = element;
+	return element;
 }
 
 function getElement(target) {
