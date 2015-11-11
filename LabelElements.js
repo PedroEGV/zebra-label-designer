@@ -72,7 +72,12 @@ function getElement(target) {
 	}
 }
 
-function editElement(target, property, value) {
+function editElement(target, property, subproperty, value) {
 	var element = getElement(target);
-	element[property]["measure"] = value;
+	if (subproperty == "") {
+		element[property] = value;
+	} else {
+		element[property][subproperty] = value;
+	}
+	return element;
 }
