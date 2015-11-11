@@ -6,10 +6,6 @@ label, input, select {
 	float: left;
 }
 
-.labelMeasure, .elementMeasure, .labelHomeMeasure {
-	width: 5em;
-}
-
 .labelElement {
 	position: absolute;
 }
@@ -24,8 +20,4 @@ label, input, select {
 #labelHome {
 	position: relative;
 	overflow: visible;
-}
-
-#elementText, #target {
-	width: 15em;
 }
