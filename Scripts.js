@@ -1,4 +1,5 @@
 function updateFields(target) {
+	$(".elementMeasure, #elementText").prop("readonly", false);
 	var element = getElement(target);
 	$(".elementMeasure").each(function() {
 		var property = $(this).attr("id");
@@ -71,6 +72,8 @@ function init() {
 	}
 	if (label["elements"].length > 0) {
 		updateFields($("#target").val());
+	} else {
+		$(".elementMeasure, #elementText").prop("readonly", true).val("");
 	}
 	updateZPL();
 }
